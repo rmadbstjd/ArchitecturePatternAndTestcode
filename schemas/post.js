@@ -14,7 +14,7 @@ const goodsSchema = new mongoose.Schema({
     
   },
   password : {
-    type : Number,
+    type : String,
     
   },
   user : {

@@ -44,7 +44,7 @@ router.put('/comments/:commentId', async(req,res) =>{
     if(content ==undefined){
         return res.status(400).json({success: false, errorMessage: "댓글 내용을 입력해주세요."});
     }
-    else if(password != commentpw[0].password) {
+    else if(password !== String(commentpw[0].password)) {
         res.status(400).json({success: false, errorMessage: "비밀번호가 일치하지 않아 댓글 수정이 불가능합니다."});
     }
     else {
@@ -63,7 +63,7 @@ router.delete('/comments/:commentId', async(req,res) => {
     const {password} = req.body;
     const exsistsComment = await Comments.find({_id : commentId});
     if(exsistsComment.length) {
-        if(password == exsistsComment[0].password) {
+        if(password === String(exsistsComment[0].password)) {
             await Comments.deleteOne({_id : commentId});
             
         }

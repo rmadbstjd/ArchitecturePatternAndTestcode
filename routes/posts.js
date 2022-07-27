@@ -42,8 +42,8 @@ router.put('/posts/:postId', async(req, res) => {
     const postId = req.params.postId;
     const {password, title, content} = req.body; //re_title이라 작성하지 않고 title이라고 작성학 $set에서 {title: title}하면 오류남
     const postpw = await Posts.find({_id : postId});
-    
-    if(password != postpw[0].password) {
+   
+    if(password !== String(postpw[0].password)) {
          res.status(400).json({success: false, errorMessage: "비밀번호가 일치하지 않아 게시글 수정이 불가능합니다."});
     }
     else {
@@ -61,7 +61,7 @@ router.delete('/posts/:postId', async(req, res) =>{
     const exsistsPost = await Posts.find({_id : postId});
     
     if(exsistsPost.length) {
-        if(password == exsistsPost[0].password){
+        if(password === String(exsistsPost[0].password)){
             await Posts.deleteOne({_id : postId});
         }
         else {

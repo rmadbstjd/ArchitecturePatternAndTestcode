@@ -8,7 +8,7 @@ const goodsSchema = new mongoose.Schema({
     type: String,
   },
  password: {
-    type : Number,
+    type : String,
   },
   postId : {
     type : String,
