@@ -40,7 +40,7 @@ router.get('/posts/:postId', async(req, res) => {
 });
 router.put('/posts/:postId', async(req, res) => {
     const postId = req.params.postId;
-    const {password, re_title, re_content} = req.body; //re_title이라 작성하지 않고 title이라고 작성학 $set에서 {title: title}하면 오류남
+    const {password, title, content} = req.body; //re_title이라 작성하지 않고 title이라고 작성학 $set에서 {title: title}하면 오류남
     const postpw = await Posts.find({_id : postId});
     
     if(password != postpw[0].password) {
@@ -48,7 +48,7 @@ router.put('/posts/:postId', async(req, res) => {
     }
     else {
         
-        await Posts.updateOne({_id : postId}, {$set : {title: re_title, content:re_content}});
+        await Posts.updateOne({_id : postId}, {$set : {title: title, content: content}});
     }
     res.json({
         success:true, message:"게시글 수정 완료!"

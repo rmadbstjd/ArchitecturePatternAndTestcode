@@ -39,9 +39,9 @@ router.get('/comments/:postId', async(req,res) => {
 });
 router.put('/comments/:commentId', async(req,res) =>{
     const {commentId} = req.params;
-    const {password, re_content} = req.body;
+    const {password, content} = req.body;
     const commentpw = await Comments.find({_id : commentId});
-    if(re_content ==undefined){
+    if(content ==undefined){
         return res.status(400).json({success: false, errorMessage: "댓글 내용을 입력해주세요."});
     }
     else if(password != commentpw[0].password) {
@@ -49,7 +49,7 @@ router.put('/comments/:commentId', async(req,res) =>{
     }
     else {
         
-        await Comments.updateOne({_id : commentId}, {$set : {content: re_content}});
+        await Comments.updateOne({_id : commentId}, {$set : {content: content}});
     }
 
     res.json({
