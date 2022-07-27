@@ -3,7 +3,7 @@ const comment = require('../schemas/comment');
 const router = express.Router();
 const Comments = require("../schemas/comment"); 
 const dayjs = require("dayjs");
-
+console.log('test');
 router.post('/comments/:postId', async(req,res) => {
     const {user,password,content} = req.body;
     const {postId} = req.params;

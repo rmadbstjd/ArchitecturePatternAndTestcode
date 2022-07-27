@@ -4,7 +4,7 @@ const router = express.Router();
 const Posts = require("../schemas/post"); 
 
 const dayjs = require("dayjs");
-
+console.log('test');
 
 router.get('/posts', async (req, res) => {
    const post = await Posts.find();
