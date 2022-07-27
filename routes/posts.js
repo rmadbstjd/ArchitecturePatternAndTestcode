@@ -17,7 +17,6 @@ router.get('/posts', async (req, res) => {
             postId : sorted_post._id,
             user : sorted_post.user,
             title : sorted_post.title,
-            content : sorted_post.content,
             createdAt : sorted_post.createdAt,
         })),
     });
@@ -85,7 +84,7 @@ router.post('/posts', async(req, res) => {
     //let now_now_time = Date.parse(now_time);
     //console.log(typeof(now_time,now_now_time));
     const posts = await Posts.find({user});
-    console.log(posts);
+    
     if(posts.length) {
         return res.status(400).json({success: false, errorMessage : "이미 있는 데이터입니다."});
     };

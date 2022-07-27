@@ -11,10 +11,11 @@ router.post('/comments/:postId', async(req,res) => {
     let now = dayjs();
     now.format();
     let createdAt = now.format("YYYY-MM-DD HH:mm:ss");
-    console.log(createdAt);
-    if(comments.length) {
-        return res.status(400).json({success: false, errorMessage : "이미 있는 데이터입니다."});
+    if(content == undefined) {
+        console.log("test");
+        return res.status(400).json({success: false, errorMessage: "댓글 내용을 입력해주세요."});
     }
+
     const createdComments = await Comments.create({user,password,content,postId,createdAt});
     res.json({
         success: true, message:"댓글을 작성하였습니다!"
@@ -24,7 +25,6 @@ router.get('/comments/:postId', async(req,res) => {
     
     const {postId} = req.params;
     const comment = await Comments.find({postId : postId});
-    console.log(comment);
     const sorted_comment = comment.sort(function(a,b) {
         return new Date(a.date).getTime() - new Date(b.date).getTime();
    }).reverse();
@@ -41,7 +41,10 @@ router.put('/comments/:commentId', async(req,res) =>{
     const {commentId} = req.params;
     const {password, re_content} = req.body;
     const commentpw = await Comments.find({_id : commentId});
-    if(password != commentpw[0].password) {
+    if(re_content ==undefined){
+        return res.status(400).json({success: false, errorMessage: "댓글 내용을 입력해주세요."});
+    }
+    else if(password != commentpw[0].password) {
         res.status(400).json({success: false, errorMessage: "비밀번호가 일치하지 않아 댓글 수정이 불가능합니다."});
     }
     else {
