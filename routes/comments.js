@@ -11,8 +11,8 @@ router.post('/comments/:postId', async(req,res) => {
     let now = dayjs();
     now.format();
     let createdAt = now.format("YYYY-MM-DD HH:mm:ss");
-    if(content == undefined) {
-        console.log("test");
+    if(content === "") {
+        
         return res.status(400).json({success: false, errorMessage: "댓글 내용을 입력해주세요."});
     }
 
@@ -41,7 +41,8 @@ router.put('/comments/:commentId', async(req,res) =>{
     const {commentId} = req.params;
     const {password, content} = req.body;
     const commentpw = await Comments.find({_id : commentId});
-    if(content ==undefined){
+    
+    if(content ===""){
         return res.status(400).json({success: false, errorMessage: "댓글 내용을 입력해주세요."});
     }
     else if(password !== String(commentpw[0].password)) {
