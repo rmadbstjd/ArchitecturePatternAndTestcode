@@ -13,7 +13,7 @@ app.use(express.json()); // body로 들어오는 json 형태의 데이터를 파
 app.use("/api", [postRouter,commentRouter]);
 
 app.get('/', (req, res) => {
-  res.send('Hello World@@@@@@@@@@@@');
+  res.send('Hello World!!!!!!!');
 });
 
 app.listen(port, () => {
