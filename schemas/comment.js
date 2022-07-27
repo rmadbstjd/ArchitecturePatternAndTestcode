@@ -4,7 +4,7 @@ const goodsSchema = new mongoose.Schema({
  user : {
   type : String,
  },
-  comment : {
+  content : {
     type: String,
   },
  password: {

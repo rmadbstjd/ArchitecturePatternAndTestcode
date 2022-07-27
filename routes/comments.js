@@ -5,7 +5,7 @@ const Comments = require("../schemas/comment");
 const dayjs = require("dayjs");
 
 router.post('/comments/:postId', async(req,res) => {
-    const {user,password,comment} = req.body;
+    const {user,password,content} = req.body;
     const {postId} = req.params;
     const comments = await Comments.find({user});
     let now = dayjs();
@@ -15,7 +15,7 @@ router.post('/comments/:postId', async(req,res) => {
     if(comments.length) {
         return res.status(400).json({success: false, errorMessage : "이미 있는 데이터입니다."});
     }
-    const createdComments = await Comments.create({user,password,comment,postId,createdAt});
+    const createdComments = await Comments.create({user,password,content,postId,createdAt});
     res.json({
         success: true, message:"댓글을 작성하였습니다!"
     });
@@ -32,21 +32,21 @@ router.get('/comments/:postId', async(req,res) => {
         data : sorted_comment.map((sorted_comment) =>({
         commentId : sorted_comment._id,
         user: sorted_comment.user,
-        comment: sorted_comment.comment,
+        content: sorted_comment.content,
         createdAt : sorted_comment.createdAt,
         })),
     });
 });
 router.put('/comments/:commentId', async(req,res) =>{
     const {commentId} = req.params;
-    const {password, re_comment} = req.body;
+    const {password, re_content} = req.body;
     const commentpw = await Comments.find({_id : commentId});
     if(password != commentpw[0].password) {
         res.status(400).json({success: false, errorMessage: "비밀번호가 일치하지 않아 댓글 수정이 불가능합니다."});
     }
     else {
         
-        await Comments.updateOne({_id : commentId}, {$set : {comment: re_comment}});
+        await Comments.updateOne({_id : commentId}, {$set : {content: re_content}});
     }
 
     res.json({
