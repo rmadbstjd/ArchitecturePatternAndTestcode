@@ -8,12 +8,14 @@ console.log('test');
 
 router.get('/posts', async (req, res) => {
    const post = await Posts.find();
+   console.log(post);
+   console.log("--------------------------------------");
    const sorted_post = post.sort(function(a,b) {
         return new Date(a.date).getTime() - new Date(b.date).getTime();
    }).reverse();
-
+   console.log(sorted_post);
     res.json({
-        data : sorted_post.map((sorted_post) => ({
+        data : sorted_post.map((sorted_post) => ({  // arrow function의 특징 : 객체를 반환할 때 => 뒤에 ({})를 붙여야 한다.
             postId : sorted_post._id,
             user : sorted_post.user,
             title : sorted_post.title,
@@ -26,16 +28,18 @@ router.get('/posts/:postId', async(req, res) => {
     
     const postId = req.params.postId;
     const post = await Posts.find({_id : postId});
-    console.log(post);
+    
+    
     res.json({
-        data : post.map((post) => ({
-            postId : post._id,
-            user : post.user,
-            title : post.title,
-            content : post.content,
-            createdAt : post.createdAt,
+        data : {         
+            postId : post[0]._id,
+            user : post[0].user,
+            title : post[0].title,
+            content : post[0].content,
+            createdAt : post[0].createdAt,
+        }
             
-        })),
+        
     });
 });
 router.put('/posts/:postId', async(req, res) => {
