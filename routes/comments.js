@@ -74,6 +74,12 @@ router.delete('/comments/:commentId', async(req,res) => {
             await Comments.deleteOne({_id : commentId});
             
         }
+        else if(password === "") {
+            res.status(400).json({success: false, errorMessage: "비밀번호를 입력해주세요."});
+        }
+        else if(password === undefined) {
+            res.status(400).json({success: false, errorMessage: "잘못된 형식으로 요청하였습니다."});
+        }
         else {
             res.status(400).json({success: false, errorMessage: "비밀번호가 일치하지 않아 댓글 수정이 불가능합니다."});
         }
