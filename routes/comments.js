@@ -42,9 +42,15 @@ router.put('/comments/:commentId', async(req,res) =>{
     const {password, content} = req.body;
     const commentpw = await Comments.find({_id : commentId});
     
-    if(content ===""){
+    if(content === ""){
         return res.status(400).json({success: false, errorMessage: "댓글 내용을 입력해주세요."});
     }
+    else if(content === undefined) {
+        return res.status(400).json({success: false, errorMessage: "잘못된 형식으로 요청하였습니다."});
+    }
+    else if(password === ""){
+        return res.status(400).json({success: false, errorMessage: "비밀번호를 입력해주세요."});
+    } 
     else if(password !== String(commentpw[0].password)) {
         res.status(400).json({success: false, errorMessage: "비밀번호가 일치하지 않아 댓글 수정이 불가능합니다."});
     }
