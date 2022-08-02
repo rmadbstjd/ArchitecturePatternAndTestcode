@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const goodsSchema = new mongoose.Schema({
- user : {
+ nickname : {
   type : String,
  },
   content : {
@@ -14,6 +14,12 @@ const goodsSchema = new mongoose.Schema({
     type : String,
   },
   createdAt : {
+    type : String,
+  },
+  userId : {
+    type: String,
+  },
+  commentId : {
     type : String,
   },
 

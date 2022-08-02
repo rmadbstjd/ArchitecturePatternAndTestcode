@@ -17,14 +17,23 @@ const goodsSchema = new mongoose.Schema({
     type : String,
     
   },
-  user : {
+  nickname : {
     type : String,
   },
   createdAt : {
     type : String,
   },
-  
-
+  userId : {
+    type : String,
+  },
+  like : {
+    type : Number,
+    default : 0,
+  },
+  like_array : {
+    type : Array,
+  },
+ 
 
 });
 
