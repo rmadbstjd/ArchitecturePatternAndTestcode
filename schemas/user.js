@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+/*const mongoose = require("mongoose");
 
 const UserSchema = new mongoose.Schema({
   
@@ -14,10 +14,5 @@ const UserSchema = new mongoose.Schema({
     type : Array,
   },
 });
-UserSchema.virtual("userId").get(function () {
-  return this._id.toHexString();
-});
-UserSchema.set("toJSON", {
-  virtuals: true,
-});
-module.exports = mongoose.model("Users", UserSchema);
+
+module.exports = mongoose.model("Users", UserSchema);*/
