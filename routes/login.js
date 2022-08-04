@@ -33,7 +33,7 @@ router.post('/login', async (req,res) =>{
     const token = jwt.sign(payload, 'my-secret-key'); //jwt.sign(payload, secret, options),payload에는 JWT에 저장되는 정보로 key:value로 구성된다.
     res.cookie('token',token);
         
-                                                    장
+                                                    
         res.json({success:true, message: "로그인이 성공되었습니다."});
     
 });
