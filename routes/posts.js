@@ -160,7 +160,7 @@ router.put('/posts/:postId/like', authMiddleware, async(req,res) => {
             
             if(pushlike.postId == test[i].postId){
                 like_done = false;
-                await Likey.destroy({where:{postId}});
+                await Likey.destroy({where:{postId,userId}});
                  
             }
 

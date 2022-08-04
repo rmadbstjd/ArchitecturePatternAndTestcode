@@ -27,7 +27,8 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       like: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        
       },
       createdAt: {
         allowNull: false,

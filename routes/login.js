@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const jwt = require("jsonwebtoken");
 const { User } = require("../models");
+require('dotenv').config();
 
 //로그인 기능을 POST 메소드로 하는 이유 : 토큰을 로그인할때마다 발행해주는다는 의미로 POST로 사용하기도 하나
 //POST Methor가 아닌 GET Method로 한다면 body에 데이터를 실을 수 없고 Query String 주소 뒤에 ?해서 email=~~~~, password = ~~~~ 하면
@@ -30,7 +31,7 @@ router.post('/login', async (req,res) =>{
     console.log("유저아디",user.userId)
     // 위의 조건을 모두 만족하면 토큰 생성 및 클라이언트로 보낼 payload 작성
     let payload = {userId: user.userId, nickname : nickname};
-    const token = jwt.sign(payload, 'my-secret-key'); //jwt.sign(payload, secret, options),payload에는 JWT에 저장되는 정보로 key:value로 구성된다.
+    const token = jwt.sign(payload, process.env.MYSQL_KEY); //jwt.sign(payload, secret, options),payload에는 JWT에 저장되는 정보로 key:value로 구성된다.
     res.cookie('token',token);
         
                                                     
