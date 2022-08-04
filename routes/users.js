@@ -24,7 +24,7 @@ router.post('/users', async (req,res) => {
     };
     if(password !== confirm) {
         res.status(400).json({success: false, errorMessage : "비밀번호와 확인 비밀번호가 일치하지  않습니다."});
-        return ; // if문의 조건을 충족시키면 if문 아래의 코드들을 실행시키지 않기 위해
+        return ; 
     }
     if(existUser) {
         console.log("existUser",existUser);

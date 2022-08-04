@@ -21,6 +21,7 @@ router.post('/posts',  authMiddleware, async(req, res) => {
     const createdPost = await Post.create({title,userId,nickname,content});
     res.json({success : true, message : `${nickname}님의 게시글을 생성하였습니다.`});
 });
+//로그인 한 유저가 좋아요를 누른 게시글 조회
 router.get('/posts/like', authMiddleware, async(req,res) => {
     
     const tokenValue = req.cookies.token;
@@ -56,7 +57,7 @@ router.get('/posts/like', authMiddleware, async(req,res) => {
   
 
  });
-module.exports = router;
+
 
 //전체 게시글 조회 API
 router.get('/posts', async(req, res) => {
@@ -150,8 +151,8 @@ router.put('/posts/:postId/like', authMiddleware, async(req,res) => {
     const {userId,nickname}  = jwt.verify(tokenValue, "my-secret-key");
     const postId = req.params.postId;
     const post = await Post.findOne({where : {id : postId}});
-    const test = await Likey.findAll({where:{userId : userId}}); // 좋아요를 누른 유저의 Likey테이블의 모든 정보
-    const pushlike = await Likey.create({userId,postId}); // 좋아요를 눌러서 Likey 테이블 추가
+    const test = await Likey.findAll({where:{userId : userId}});
+    const pushlike = await Likey.create({userId,postId}); 
     let like_done = true;
     for(let i = 0; i<test.length; i++) {
         
@@ -178,3 +179,4 @@ router.put('/posts/:postId/like', authMiddleware, async(req,res) => {
 
 });
 
+module.exports = router;
